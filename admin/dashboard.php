@@ -1,0 +1,9 @@
+<?php
+require_once __DIR__.'/../includes/functions.php';admin_only();
+$herbCount=(int)$pdo->query("SELECT COUNT(*) FROM herbs")->fetchColumn();$customerCount=(int)$pdo->query("SELECT COUNT(*) FROM customers")->fetchColumn();$orderCount=(int)$pdo->query("SELECT COUNT(*) FROM orders")->fetchColumn();$revenue=(float)$pdo->query("SELECT COALESCE(SUM(total_amount),0) FROM orders")->fetchColumn();$orders=$pdo->query("SELECT o.*,c.name AS customer_name FROM orders o JOIN customers c ON c.id=o.customer_id ORDER BY o.created_at DESC LIMIT 8")->fetchAll();
+$pageTitle='Admin dashboard | HerbNest';include __DIR__.'/../includes/admin-header.php';
+?>
+<section class="admin-main"><div class="admin-heading"><div><span class="eyebrow">OVERVIEW</span><h1>Good day, <?= e($_SESSION['admin_name']??'Admin') ?>.</h1></div><a class="button" href="add-herb.php">+ Add a herb</a></div>
+<div class="stats-grid"><div class="stat-card"><span>Herb products</span><b><?= $herbCount ?></b></div><div class="stat-card"><span>Customers</span><b><?= $customerCount ?></b></div><div class="stat-card"><span>Orders</span><b><?= $orderCount ?></b></div><div class="stat-card"><span>Order value</span><b><?= money($revenue) ?></b></div></div>
+<div class="admin-panel"><div class="section-heading"><h2>Recent orders</h2><a class="text-link" href="manage-orders.php">Manage orders ↗</a></div><div class="table-wrap"><table><thead><tr><th>Order</th><th>Customer</th><th>Placed</th><th>Total</th><th>Status</th></tr></thead><tbody><?php foreach($orders as $o): ?><tr><td>#<?= (int)$o['id'] ?></td><td><?= e($o['customer_name']) ?></td><td><?= e($o['created_at']) ?></td><td><?= money((float)$o['total_amount']) ?></td><td><?= e($o['status']) ?></td></tr><?php endforeach; ?></tbody></table></div></div>
+</section><?php include __DIR__.'/../includes/admin-footer.php'; ?>

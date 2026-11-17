@@ -1,0 +1,3 @@
+<?php
+require_once __DIR__.'/../includes/functions.php';admin_only();$users=$pdo->query("SELECT id,name,email,username,created_at FROM customers ORDER BY created_at DESC")->fetchAll();$pageTitle='Customers';include __DIR__.'/../includes/admin-header.php';?>
+<section class="admin-main"><div class="admin-heading"><h1>Customers</h1></div><div class="admin-panel table-wrap"><table><thead><tr><th>Name</th><th>Email</th><th>Username</th><th>Joined</th></tr></thead><tbody><?php foreach($users as $u): ?><tr><td><?= e($u['name']) ?></td><td><?= e($u['email']) ?></td><td><?= e($u['username']) ?></td><td><?= e($u['created_at']) ?></td></tr><?php endforeach; ?></tbody></table></div></section><?php include __DIR__.'/../includes/admin-footer.php';?>

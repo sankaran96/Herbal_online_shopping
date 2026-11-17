@@ -1,0 +1,3 @@
+<?php $pageTitle=$pageTitle??'HerbNest Admin'; ?>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title><?= e($pageTitle) ?></title><link rel="stylesheet" href="../assets/css/style.css"></head><body class="admin-body">
+<header class="admin-top"><a class="brand" href="dashboard.php"><span class="brand-mark">✿</span><span>herbnest<small>ADMIN CONSOLE</small></span></a><nav><a href="dashboard.php">Dashboard</a><a href="manage-herbs.php">Herbs</a><a href="manage-orders.php">Orders</a><a href="users.php">Customers</a><a href="../logout.php">Logout</a></nav></header>
